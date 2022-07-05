@@ -1,13 +1,13 @@
 import React from "react";
 import axios from "axios";
 
-import AddFavBeerButton from "../AddFavBeerButton/AddFavBeerButton";
 import { FaBeer } from "react-icons/fa";
-import { BeersList, List, ListTile, BeerImage } from "./BeerList.styled";
-import { useState } from "react";
-import CustomButton from "../AddFavBeerButton/AddFavBeerButton";
+import { BeersList, BeerTile, Title, BeerImage } from "./BeerList.styled";
+import CustomButton from "../CustomButton/CustomButton";
 import { Header } from "../Header/Header.styled";
-
+import TitleTile from "../TitleTile/TitleTile";
+import TextTile from "../TextTile/TextTile";
+import useLocalStorage from "../../hooks/useLocalStorage";
 function BeerList({
   beerList,
   setBeerList,
@@ -16,7 +16,7 @@ function BeerList({
   setCurrentPage,
   beerPerPage,
 }) {
-  const [favBeers, setFavBeers] = useState([]);
+  const [favBeers, setFavBeers] = useLocalStorage("favBeers", []);
 
   const addFavBeerHandler = (id) => {
     const newArray = favBeers.find((favId) => favId === id);
@@ -42,30 +42,34 @@ function BeerList({
 
   return (
     <BeersList beerList={beerList}>
+      <TitleTile>
+        <TextTile>Name</TextTile>
+        <TextTile>%</TextTile>
+        <TextTile>pH</TextTile>
+        <TextTile>Tagline</TextTile>
+      </TitleTile>
       {beerList
         .filter((beer) => {
-          if (!showFavBeers) {
-            return true;
-          }
+          if (!showFavBeers) return true;
           return favBeers.includes(beer.id);
         })
         .map((beer) => (
-          <List key={beer.id}>
-            {/*List - BeerTile */}
+          <BeerTile key={beer.id}>
             <BeerImage src={beer.image_url} />
-            <ListTile>{beer.name}</ListTile>
-            {/*TITLE*/}
-            <ListTile>{beer.abv}</ListTile>
-            <ListTile>{beer.ph}</ListTile>
-            <ListTile>{beer.tagline}</ListTile>
-            <AddFavBeerButton
+            <Title>{beer.name}</Title>
+            <Title>{beer.abv}</Title>
+            <Title>{beer.ph}</Title>
+            <Title>{beer.tagline}</Title>
+            <CustomButton
+              isActive={favBeers.some((id) => id === beer.id)}
+              isFavButton
               onClick={() => {
                 addFavBeerHandler(beer.id);
               }}
             >
               <FaBeer />
-            </AddFavBeerButton>
-          </List>
+            </CustomButton>
+          </BeerTile>
         ))}
       <Header>
         <CustomButton onClick={showMoreBeers}>Show more beers</CustomButton>
