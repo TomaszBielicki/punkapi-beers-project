@@ -9,22 +9,19 @@ function App() {
   const [beerList, setBeerList] = useState([]);
   const [showFavBeers, setShowFavBeers] = useState(false);
   const [currentPage, setCurrentPage] = useState(2);
-  const [beerPerPage, setBeerPerPage] = useState(2);
+  const [beerPerPage, setBeerPerPage] = useState(10);
 
   useEffect(() => {
     axios
       .get(`https://api.punkapi.com/v2/beers/?page=1&per_page=${beerPerPage}`)
       .then((res) => {
         setBeerList(res.data);
-        console.log("EFFECT DONE");
       })
 
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
-
-  console.log("beer list: ", beerList);
 
   return (
     <Wrapper>
