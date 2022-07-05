@@ -4,7 +4,7 @@ import axios from "axios";
 import { FaBeer } from "react-icons/fa";
 import { BeersList, BeerTile, Title, BeerImage } from "./BeerList.styled";
 import CustomButton from "../CustomButton/CustomButton";
-import { Header } from "../Header/Header.styled";
+import { Header } from "../../styles/GeneralComponents/Header/Header.styled";
 import TitleTile from "../TitleTile/TitleTile";
 import TextTile from "../TextTile/TextTile";
 import useLocalStorage from "../../hooks/useLocalStorage";

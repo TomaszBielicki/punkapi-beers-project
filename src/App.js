@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Wrapper } from "./components/Wrapper/Wrapper.styled";
-import { Header } from "./components/Header/Header.styled";
+import { Wrapper } from "./styles/GeneralComponents/Wrapper/Wrapper.styled";
+import { Header } from "./styles/GeneralComponents/Header/Header.styled";
 import BeerList from "./components/BeerList/BeerList";
 import CustomButton from "./components/CustomButton/CustomButton";
 
